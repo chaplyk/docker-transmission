@@ -1,0 +1,8 @@
+typing-extensions==3.7.4.3
+Jinja2==2.11.2
+click==7.1.2
+itsdangerous==1.1.0
+Werkzeug==1.0.1
+transmission_rpc==3.2.2
+Flask==1.1.2
+MarkupSafe==1.1.1

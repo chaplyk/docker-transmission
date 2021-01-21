@@ -7,6 +7,8 @@ ARG TRANSMISSION_VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="aptalca"
 
+COPY requirements.txt /opt/app/requirements.txt
+
 RUN \
  echo "**** install packages ****" && \
  apk add --no-cache \
@@ -15,7 +17,7 @@ RUN \
 	jq \
 	openssl \
 	p7zip \
-	python3 \
+	python3-dev \
 	rsync \
 	tar \
 	transmission-cli \
@@ -54,6 +56,8 @@ RUN \
  tar xf \
 	/tmp/kettu.tar.gz -C \
 	/kettu --strip-components=1 && \
+ echo "**** python widget ****" && \
+ apk add py3-pip py3-yarl && pip3 install -r /opt/app/requirements.txt --no-deps && \
  echo "**** cleanup ****" && \
  rm -rf \
 	/tmp/*
@@ -63,5 +67,5 @@ RUN \
 COPY root/ /
 
 # ports and volumes
-EXPOSE 9091 51413
+EXPOSE 9091 51413 5141
 VOLUME /config /downloads /watch
